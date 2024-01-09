@@ -9,7 +9,7 @@
 
         loader.load(
             // URL to your GLB file
-            'assets/model.glb',
+            'assets/house.glb',
             function ( gltf ) {
                 var boundingBox = new THREE.Box3().setFromObject( gltf.scene );
                 var size = boundingBox.getSize( new THREE.Vector3() );

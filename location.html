@@ -3,15 +3,60 @@
 <head>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <style>
+        #location {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body style='margin : 0px; overflow: hidden;'>
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
-        <a-entity gps-entity-place="latitude: 9.4383650; longitude: 76.3427870;">
-            <a-entity gltf-model="url(assets/residence.glb)" position="0 0 0" scale = "1 1 1 "></a-entity>
+        <a-entity gps-entity-place="latitude: 9.4384810; longitude: 76.3428190;">
+            <a-entity gltf-model="url(assets/house.glb)" position="0 0 0" scale = "1 1 1 "></a-entity>
         </a-entity>
         <a-entity camera></a-entity>
     </a-scene>
+    <div id="location"></div>
+    <script>
+        var targetLatitude = 9.4384810;
+        var targetLongitude = 76.3428190;
+
+        function updateLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var distance = calculateDistance(position.coords.latitude, position.coords.longitude, targetLatitude, targetLongitude);
+                    document.getElementById('location').textContent =
+                        'Current location: Latitude: ' + position.coords.latitude +
+                        ', Longitude: ' + position.coords.longitude +
+                        '. Distance to target: ' + distance + ' meters.';
+                });
+            } else {
+                document.getElementById('location').textContent = 'Geolocation is not supported by this browser.';
+            }
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            var R = 6371e3; // metres
+            var φ1 = lat1 * Math.PI/180; // φ, λ in radians
+            var φ2 = lat2 * Math.PI/180;
+            var Δφ = (lat2-lat1) * Math.PI/180;
+            var Δλ = (lon2-lon1) * Math.PI/180;
+
+            var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                    Math.cos(φ1) * Math.cos(φ2) *
+                    Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+            return R * c; // in metres
+        }
+
+        setInterval(updateLocation, 1000);
+    </script>
 </body>
 </html>
-
-<!--  I downloaded this on 9th January, 2023 "residential complex modern apartment building" (https://skfb.ly/oPvGz) by saeedakbari is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).  -->

@@ -18,7 +18,7 @@
 <body style='margin : 0px; overflow: hidden;'>
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
         <a-entity gps-entity-place="latitude: 9.4384810; longitude: 76.3428190;">
-            <a-entity gltf-model="url(assets/table_low.glb)" position="0 0 0" scale = "1 1 1 "></a-entity>
+            <a-entity gltf-model="url(assets/house.glb)" position="0 0 0" scale = "1 1 1 "></a-entity>
         </a-entity>
         <a-entity camera></a-entity>
     </a-scene>
@@ -34,7 +34,9 @@
                     document.getElementById('location').textContent =
                         'Current location: Latitude: ' + position.coords.latitude +
                         ', Longitude: ' + position.coords.longitude +
-                        '. Distance to target: ' + distance + ' meters.';
+                        '. Distance to target: ' + distance + ' meters.' +
+                        ' Target location: Latitude: ' + targetLatitude +
+                        ', Longitude: ' + targetLongitude;
                 });
             } else {
                 document.getElementById('location').textContent = 'Geolocation is not supported by this browser.';

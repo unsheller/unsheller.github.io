@@ -2,14 +2,14 @@
 <html>
 <head>
     <script type="module">
-        import * as THREE from 'https://threejs.org/build/three.module.js';
-        import { GLTFLoader } from 'https://threejs.org/examples/jsm/loaders/GLTFLoader.js';
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.125.2/build/three.module.js';
+        import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/loaders/GLTFLoader.js';
 
         var loader = new GLTFLoader();
 
         loader.load(
             // URL to your GLB file
-            'assets/house.glb',
+            'assets/model.glb',
             function ( gltf ) {
                 var boundingBox = new THREE.Box3().setFromObject( gltf.scene );
                 var size = boundingBox.getSize( new THREE.Vector3() );
@@ -26,5 +26,3 @@
 <body>
 </body>
 </html>
-
-

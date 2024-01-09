@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://threejs.org/build/three.js"></script>
+    <script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body>
+    <script>
+        var loader = new THREE.GLTFLoader();
+
+        loader.load(
+            // URL to your GLB file
+            'assets/house.glb',
+            function ( gltf ) {
+                var boundingBox = new THREE.Box3().setFromObject( gltf.scene );
+                var size = boundingBox.getSize( new THREE.Vector3() );
+
+                console.log( 'Width:', size.x );
+                console.log( 'Height:', size.y );
+                console.log( 'Depth:', size.z );
+            },
+            undefined,
+            function ( error ) {
+                console.error( error );
+            }
+        );
+    </script>
+</body>
+</html>

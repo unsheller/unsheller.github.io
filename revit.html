@@ -9,7 +9,20 @@
         <a-marker preset = "hiro">
             <a-entity gltf-model="url(assets/revit.glb)" position="0 0 0" scale = "0.005 0.005 0.005 "></a-entity>
         </a-marker>
+        <a-entity id="searchingSign" visible="false">Searching for marker...</a-entity>
         <a-entity camera></a-entity>
     </a-scene>
+    <script>
+        var marker = document.querySelector('a-marker');
+        var searchingSign = document.querySelector('#searchingSign');
+
+        marker.addEventListener('markerFound', function() {
+            searchingSign.setAttribute('visible', false);
+        });
+
+        marker.addEventListener('markerLost', function() {
+            searchingSign.setAttribute('visible', true);
+        });
+    </script>
 </body>
 </html>
